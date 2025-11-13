@@ -26,7 +26,7 @@ public class MovieController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<MovieDto> getById(@PathVariable Long id) {
         MovieDto movie = service.getById(id);
-        return new ResponseEntity<>(movie, HttpStatus.OK);
+        return new ResponseEntity<>(movie, HttpStatus.NOT_FOUND);
     }
 
     @PostMapping

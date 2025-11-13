@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Table(name = "movie")
 @Data
-
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie {

@@ -28,13 +28,13 @@ public class MovieServiceImplementation implements MovieService{
     }
 
     private Movie toEntity(MovieDto dto) {
-            Movie mv = new Movie();
-            mv.setId(dto.getId());
-            mv.setTitle(dto.getTitle());
-            mv.setGenre(dto.getGenre());
-            mv.setReleaseYear(dto.getReleaseYear());
-            mv.setRating(dto.getRating());
-            return mv;
+        return Movie.builder()
+                .id(dto.getId())
+                .title(dto.getTitle())
+                .genre(dto.getGenre())
+                .releaseYear(dto.getReleaseYear())
+                .rating(dto.getRating())
+                .build();
     }
 
     public List<MovieDto> getAll() {

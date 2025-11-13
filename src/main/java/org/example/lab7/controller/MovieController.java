@@ -2,7 +2,7 @@ package org.example.lab7.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.lab7.dto.MovieDto;
-import org.example.lab7.service.MovieServiceImplementation;
+import org.example.lab7.service.MovieService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/movies")
 public class MovieController {
 
-    private final MovieServiceImplementation service;
+    private final MovieService service;
 
 
     @GetMapping

@@ -16,14 +16,15 @@ public class MovieServiceImplementation implements MovieService{
         this.repository = repository;
     }
 
-    private MovieDto toDto(Movie entity) {
+    private MovieDto toDto(Movie movie) {
         return MovieDto.builder()
-                .id(entity.getId())
-                .title(entity.getTitle())
-                .genre(entity.getGenre())
-                .releaseYear(entity.getReleaseYear())
-                .rating(entity.getRating())
+                .id(movie.getId())
+                .title(movie.getTitle())
+                .genre(movie.getGenre())
+                .releaseYear(movie.getReleaseYear())
+                .rating(movie.getRating())
                 .build();
+
     }
 
     private Movie toEntity(MovieDto dto) {
@@ -34,13 +35,6 @@ public class MovieServiceImplementation implements MovieService{
             mv.setReleaseYear(dto.getReleaseYear());
             mv.setRating(dto.getRating());
             return mv;
-//        return Movie.builder()
-//                .id(dto.getId())
-//                .title(dto.getTitle())
-//                .genre(dto.getGenre())
-//                .releaseYear(dto.getReleaseYear())
-//                .rating(dto.getRating())
-//                .build();
     }
 
     public List<MovieDto> getAll() {

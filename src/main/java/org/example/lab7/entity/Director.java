@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "category")
+@Table(name = "director")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class Director {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

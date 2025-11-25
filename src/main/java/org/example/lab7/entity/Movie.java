@@ -31,8 +31,8 @@ public class Movie {
     private double rating;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "director_id")
+    private Director director;
 
     @ManyToMany
     @JoinTable(

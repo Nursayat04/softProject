@@ -1,8 +1,8 @@
 package org.example.lab7.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.lab7.dto.CategoryDto;
-import org.example.lab7.service.CategoryService;
+import org.example.lab7.dto.DirectorDto;
+import org.example.lab7.service.DirectorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,18 +11,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
-public class CategoryController {
+public class DirectorController {
 
-    private final CategoryService categoryService;
+    private final DirectorService categoryService;
 
     @GetMapping
-    public ResponseEntity<List<CategoryDto>> getAllCategories() {
+    public ResponseEntity<List<DirectorDto>> getAllCategories() {
         return ResponseEntity.ok(categoryService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long id) {
-        CategoryDto dto = categoryService.getById(id);
+    public ResponseEntity<DirectorDto> getCategoryById(@PathVariable Long id) {
+        DirectorDto dto = categoryService.getById(id);
         if (dto != null) {
             return ResponseEntity.ok(dto);
         }
@@ -30,13 +30,13 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto dto) {
+    public ResponseEntity<DirectorDto> createCategory(@RequestBody DirectorDto dto) {
         return ResponseEntity.ok(categoryService.create(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDto> updateCategory(@PathVariable Long id, @RequestBody CategoryDto dto) {
-        CategoryDto updated = categoryService.update(id, dto);
+    public ResponseEntity<DirectorDto> updateCategory(@PathVariable Long id, @RequestBody DirectorDto dto) {
+        DirectorDto updated = categoryService.update(id, dto);
         if (updated != null) {
             return ResponseEntity.ok(updated);
         }

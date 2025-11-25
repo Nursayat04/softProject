@@ -17,6 +17,6 @@ public class MovieDto {
     private String genre;
     private int releaseYear;
     private double rating;
-    private CategoryDto category;
+    private DirectorDto director;
     private List<ActorDto> actors;
 }

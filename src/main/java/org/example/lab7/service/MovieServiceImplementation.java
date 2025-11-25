@@ -4,25 +4,23 @@ import lombok.RequiredArgsConstructor;
 import org.example.lab7.dto.ActorDto;
 import org.example.lab7.dto.MovieDto;
 import org.example.lab7.entity.Actor;
-import org.example.lab7.entity.Category;
+import org.example.lab7.entity.Director;
 import org.example.lab7.entity.Movie;
 import org.example.lab7.repository.ActorRepository;
-import org.example.lab7.repository.CategoryRepository;
+import org.example.lab7.repository.DirectorRepository;
 import org.example.lab7.repository.MovieRepository;
 import org.example.lab7.Mapper.MovieMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class MovieServiceImplementation implements MovieService {
     private final MovieRepository movieRepository;
     private final ActorRepository actorRepository;
-    private final CategoryRepository categoryRepository;
+    private final DirectorRepository directorRepository;
     private final MovieMapper movieMapper;
 
     @Override
@@ -44,22 +42,28 @@ public class MovieServiceImplementation implements MovieService {
     public MovieDto create(MovieDto dto) {
         Movie movie = movieMapper.toEntity(dto);
 
-        if (dto.getCategory() != null && dto.getCategory().getId() != null) {
-            Category category = categoryRepository.findById(dto.getCategory().getId()).orElse(null);
-            movie.setCategory(category);
+        if (dto.getDirector() != null && dto.getDirector().getId() != null) {
+            Director category = directorRepository.findById(dto.getDirector().getId()).orElse(null);
+            movie.setDirector(category);
         }
 
+        List<Actor> actors = new ArrayList<>();
         if (dto.getActors() != null) {
-            List<Actor> actors = dto.getActors().stream()
-                    .map(a -> a.getId() != null ? actorRepository.findById(a.getId()).orElse(null) : null)
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.toCollection(ArrayList::new)); // mutable list
-            movie.setActors(actors);
+            for (ActorDto actorDto : dto.getActors()) {
+                if (actorDto.getId() != null) {
+                    Actor actor = actorRepository.findById(actorDto.getId()).orElse(null);
+                    if (actor != null) {
+                        actors.add(actor);
+                    }
+                }
+            }
         }
+        movie.setActors(actors);
 
         Movie savedMovie = movieRepository.save(movie);
         return movieMapper.toDto(savedMovie);
     }
+
 
     @Override
     public MovieDto update(Long id, MovieDto dto) {
@@ -71,11 +75,11 @@ public class MovieServiceImplementation implements MovieService {
             existingMovie.setReleaseYear(dto.getReleaseYear());
             existingMovie.setRating(dto.getRating());
 
-            if (dto.getCategory() != null && dto.getCategory().getId() != null) {
-                Category category = categoryRepository.findById(dto.getCategory().getId()).orElse(null);
-                existingMovie.setCategory(category);
+            if (dto.getDirector() != null && dto.getDirector().getId() != null) {
+                Director category = directorRepository.findById(dto.getDirector().getId()).orElse(null);
+                existingMovie.setDirector(category);
             } else {
-                existingMovie.setCategory(null);
+                existingMovie.setDirector(null);
             }
 
             List<Actor> actors = new ArrayList<>();
